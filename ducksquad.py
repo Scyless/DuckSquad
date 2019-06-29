@@ -2,7 +2,7 @@
 Created on Jun 27, 2019
 Python version 3.5
 @name: DuckSquad
-@author: Scy
+@authors: Scy & Mongokyou
 '''
 
 import discord
