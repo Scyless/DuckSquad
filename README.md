@@ -4,4 +4,4 @@ A bot I (Scyless#7875) made with Mongokyou (Clash-Jan#1974 on Discord). Written 
 
 It was made for the Discord Hack Week. Will probably keep using him after it ends.
 
-Written in Python 3.5 and only works in Python 3.5.
+Written in Python 3.7 and Discord.py 1.2.3.
