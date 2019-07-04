@@ -1,29 +1,41 @@
 '''
 Created on Jun 27, 2019
-Python version 3.5
-@name: DuckSquad
+Updated to new Python 3.7 and discord.py rewrite on Jul 4, 2019
+Python version 3.7
+Discord.py version 1.2.3
+@name: DuckSquad Bot
 @authors: Scy & Mongokyou
 '''
 
 import discord
-from discord.ext.commands import Bot
-from discord import Game
-from discord.utils import get
+from discord.ext import commands
 import random
 import re
 
-# Backbone
-BOT_PREFIX = ("!")
-duck = Bot(command_prefix=BOT_PREFIX)
+duck = commands.Bot(command_prefix='!')
 duck.remove_command('help')
 
+@duck.event
+async def on_ready():
+    print('Logged in as {0.user}'.format(duck))
+    print('ID - {}'.format(duck.user.id))
+    print('Now connected. Let\'s hope I didn\'t mess anything up.')
+    print('----------')
+    await duck.change_presence(status=discord.Status.dnd, activity = discord.Game('write !quack for help'))
+        
 
-# Shows avaiable commands
+# Redirects to !quack
 @duck.command()
-async def quack():
+async def help(ctx):
+    await ctx.send('Use !quack, retard.')
 
-    embed = discord.Embed(title="Seems like you quackes for help. Maybe there's still some hope left for you.", description="Note: This bot is not meant to be taken seriously. If you're offended by any jokes, that's on you.", color=0xff0000)
+    
+# Shows available commands
+@duck.command()
+async def quack(ctx):
 
+    embed = discord.Embed(title="Seems like you quackes for help. Maybe there's still some hope left for you.", description="Note: This bot is not meant to be taken seriously. If you're offended by any jokes, that's on you.", color=0xff9000)
+    embed.add_field(name="!about", value="Information about the bot and why it exists.", inline=False)
     embed.add_field(name="!ducks", value="Sends the best animal.", inline=False)
     embed.add_field(name="!shitpost", value="Sends bad jokes written by 'Mongokyou' or 'Lil Tupac' on Discord.", inline=False)
     embed.add_field(name="!rps", value="A rock paper scissors game. example: *!rps rock*, *!rps paper*", inline=False)
@@ -35,12 +47,29 @@ async def quack():
     embed.add_field(name="!anime", value="Recommends the one and only anime. Idea by 'Mongokyou' or 'Lil Tupac' on Discord.", inline=False)
     embed.add_field(name="!hug", value="Hugs the person you mention. Idea by 'Mongokyou' or 'Lil Tupac' on Discord. Example: *!hug @Scyless", inline=False)
     embed.add_field(name="!cat", value="Sends cat. Idea and pictures by 'Mongokyou' or 'Lil Tupac' on Discord.", inline=False)
+    embed.add_field(name="!hurensohn", value="Bot that won in the Discord Hack Week 2019. Fuck that.", inline=False)
 
-    await duck.say(embed=embed)
-
-
+    await ctx.send(embed=embed)
+    
+    
+# Shows creator and reason for creation
 @duck.command()
-async def ducks():
+async def about(ctx):
+
+
+    embed=discord.Embed(title="Please follow me on Twitter, I need followers", description="", color=0xff9000)
+    embed.set_author(name="Made by Scy", url="https://www.twitter.com/_Scyless", icon_url="https://i.imgur.com/lk60HXI.gif")
+    embed.set_thumbnail(url="https://i.imgur.com/0iUtk4b.png")
+    embed.add_field(name='Why was this Bot created?', value='This bot was made during the 2019 Discord Hack Week.', inline=True)
+    embed.add_field(name='Did it win?', value='No. A K-Pop Bot won. Fuck K-Pop.', inline=True)
+    embed.set_footer(text="Shoutout to Mongokyou for helping me create this bot :^⁾")
+    
+    await ctx.send(embed=embed)
+        
+
+# Sends ducks
+@duck.command()
+async def ducks(ctx):
     
     ducks = [
         'https://i.imgur.com/ROdcHRQ.jpg',
@@ -80,12 +109,12 @@ async def ducks():
         'https://i.imgur.com/sE4dwLu.jpg'
         ]
 
+    await ctx.send(random.choice(ducks))
 
-    await duck.say(random.choice(ducks))
 
 # Send puns
 @duck.command()
-async def shitpost():
+async def shitpost(ctx):
 
     puns = [
     '''People cry, not because they\'re weak. 
@@ -99,7 +128,7 @@ async def shitpost():
     ||"I'm intoxicating!"||''',
     '''You wanna hear a joke? Well, let me tell you one.
     
-    ||**YOU!**||''',
+    ||**{}**||'''.format(ctx.author),
     '''Why can't you get a girlfriend?
 
     ||**MAN'S NOT HOT!**||
@@ -109,13 +138,14 @@ async def shitpost():
     ||I chose Minecraft!||'''
     ]
 
-    await duck.say(random.choice(puns))
-    
+    await ctx.send(random.choice(puns))
+
+
 # Plays Rock Paper Scissors with you
-@duck.command(pass_context=True)
-async def rps(context):
+@duck.command()
+async def rps(ctx):
     
-    msg = (context.message.content)
+    msg = (ctx.message.content)
     nmsg = re.sub('!rps ', '', msg) # Removes !rps from the decision
     happy = [
         ', eyo I won!',
@@ -142,38 +172,38 @@ async def rps(context):
 
 # I'm sure there's an easier way. However, I was more comfortable using 'if' statements
     if 'rock' in nmsg and 'Rock' in result:
-        await duck.say(result + random.choice(neutral))
+        await ctx.send(result + random.choice(neutral))
     else:
         if 'scissor' in nmsg and 'Rock' in result:
-            await duck.say(result + random.choice(happy))
+            await ctx.send(result + random.choice(happy))
         else:
             if 'paper' in nmsg and 'Rock' in result:
-                await duck.say(result + random.choice(sad))
+                await ctx.send(result + random.choice(sad))
                 return
             else:
                 if 'rock' in nmsg and 'Scissor' in result:
-                    await duck.say(result + random.choice(sad))
+                    await ctx.send(result + random.choice(sad))
                 else:
                     if 'scissor' in nmsg and 'Scissor' in result:
-                        await duck.say(result + random.choice(neutral))
+                        await ctx.send(result + random.choice(neutral))
                     else:
                         if 'paper' in nmsg and 'Scissor' in result:
-                            await duck.say(result + random.choice(happy))
+                            await ctx.send(result + random.choice(happy))
                         else:
                             if 'rock' in nmsg and 'Paper' in result:
-                                await duck.say(result + random.choice(happy))
+                                await ctx.send(result + random.choice(happy))
                             else:
                                 if 'paper' in nmsg and 'Paper' in result:
-                                    await duck.say(result + random.choice(neutral))
+                                    await ctx.send(result + random.choice(neutral))
                                 else:
                                     if 'scissor' in nmsg and 'Paper' in result:
-                                        await duck.say(result + random.choice(sad))
+                                        await ctx.send(result + random.choice(sad))
                                         return
-     
-
+    
+    
 # Sends 6 random gopniks    
 @duck.command()
-async def gopnik():
+async def gopnik(ctx):
     
     gopniks = [
         'You are Zakhar. At least you\'re good at cooking, right? https://i.imgur.com/3evE7Je.png',
@@ -184,12 +214,12 @@ async def gopnik():
         'Dima. You listen to metal (good choice by the way) and own every Jacke Chan movie. My dream man. https://i.imgur.com/uie3u5r.png'
         ]
     
-    await duck.say(random.choice(gopniks))
-
-
-# Sends random predefined russian hardbass via youtube links    
+    await ctx.send(random.choice(gopniks))
+    
+    
+    # Sends random predefined russian hardbass via youtube links    
 @duck.command()
-async def hardbass():
+async def hardbass(ctx):
     songs = [
         'https://www.youtube.com/watch?v=BnTW6fZz-1E',
         'https://www.youtube.com/watch?v=V3hL0IEKbq4',
@@ -199,11 +229,12 @@ async def hardbass():
         'https://www.youtube.com/watch?v=A1PAO3jgmXY',
         'https://www.youtube.com/watch?v=2tch4J_pP9o'
         ]
-    await duck.say('GET OUT OF HERE, STALKER ' + random.choice(songs))
+    await ctx.send('GET OUT OF HERE, STALKER ' + random.choice(songs))
+  
   
 # Sends a random spirit animal
 @duck.command()
-async def spirit():
+async def spirit(ctx):
     spirit = [
         
         'Weak alone strong together! https://i.imgur.com/94GQR9r.jpg',
@@ -234,37 +265,41 @@ async def spirit():
         'Gotta go fast! https://i.imgur.com/EBjuXRj.jpg'
         ]
 
-    await duck.say(random.choice(spirit))
+    await ctx.send(random.choice(spirit))
+    
     
 # Pong.
 @duck.command()
-async def ping():
+async def ping(ctx):
     
-    await duck.say('Pong.')
+    await ctx.send('Pong.')
+    
     
 # Why r u not smart? 
 @duck.command()
-async def pong():
+async def pong(ctx):
 
-    await duck.say('That\'s not how this works.')
+    await ctx.send('That\'s not how this works.')
+    
     
 # 50/50 chance coinflip
-@duck.command(pass_context=True)
-async def coinflip(context):
+@duck.command()
+async def coinflip(ctx):
 
     choices = ['You got Tails!', 'You got Heads!']
     
-    await duck.say(random.choice(choices))
+    await ctx.send(random.choice(choices))
+    
     
 # Sends a single link
 @duck.command()
-async def anime():
+async def anime(ctx):
     
-    await duck.say('You should watch Boku no Pico https://i.imgur.com/Yicm7Mo.jpg')
+    await ctx.send('You should watch Boku no Pico https://i.imgur.com/Yicm7Mo.jpg')
 
 
-@duck.command(pass_context=True)
-async def hug(context):
+@duck.command()
+async def hug(ctx):
     
     links = [
         'https://i.imgur.com/GuADSLm.gif',
@@ -280,7 +315,7 @@ async def hug(context):
         'https://i.imgur.com/V4n129V.gif'
         ]
     
-    msg = (context.message.content)
+    msg = (ctx.message.content)
     nmsg = re.sub('!hug ', '', msg) # Removes !hug from the decision
     
     hugs = [
@@ -289,16 +324,16 @@ async def hug(context):
         'Did you know that hugging {} actually has health benefits?'.format(nmsg),
         'Have you ever thought about hugging {}? Don\'t do it, pet him/her/it.'.format(nmsg),
         'K-On! has the most hug scenes. Go watch  it.',
-        '{} hugs {}!'.format(context.message.author.mention, nmsg)
+        '{} hugs {}!'.format(ctx.message.author.mention, nmsg)
         ]
 
 
-    await duck.say (random.choice(hugs) + ' ' + random.choice(links)) # Send random message with random gif
+    await ctx.send(random.choice(hugs) + ' ' + random.choice(links)) # Send random message with random gif
 
 
 # Sends nekos
 @duck.command()
-async def cat():
+async def cat(ctx):
     
     cats = [
         'https://i.imgur.com/Ndkt3Fp.jpg',
@@ -320,23 +355,22 @@ async def cat():
         'https://i.imgur.com/FvxToA9.jpg'
         ]
     
-    await duck.say(random.choice(cats))
-    
+    await ctx.send(random.choice(cats))
 
+
+# Sends shitty bot link
+@duck.command()
+async def hurensohn(ctx):
+
+    await ctx.send('K-Pop was a mistake. ' + 'https://github.com/jmardjuki/KpopStan-bot')
+    
+    
 # Secret command
 @duck.command()
-async def barth():
-    await duck.say('KENNSTE KENNSTE?? https://cps-static.rovicorp.com/3/JPG_400/MI0004/190/MI0004190678.jpg?partner=allrovi.com')
+async def barth(ctx):
 
-    
-# Change 'playing', give ID in console and connect
-@duck.event
-async def on_ready():
-    
-        await duck.change_presence(game=Game(name='write !quack for help'))
-        print('ID - ' + duck.user.id)
-        print('Now connected. Let\'s hope I didn\'t mess anything up.')
-        print('----------')
+    await ctx.send('KENNSTE KENNSTE?? https://cps-static.rovicorp.com/3/JPG_400/MI0004/190/MI0004190678.jpg?partner=allrovi.com')
 
-TOKEN = 'YourTokenHere'
+
+TOKEN = 'NTkzNzA2NzI2NjM3Njk5MDgz.XRdFrw.zYlB9wQEvNriv6RdOhFfGK1PhJ8'
 duck.run(TOKEN)
