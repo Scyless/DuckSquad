@@ -29,7 +29,7 @@ async def on_ready():
     print('ID - {}'.format(duck.user.id))
     print('Now connected. Let\'s hope I didn\'t mess anything up.')
     print('----------')
-    await duck.change_presence(status=discord.Status.dnd, activity = discord.Game('write !quack for help'))
+    await duck.change_presence(status=discord.Status.dnd, activity = discord.Game('!quack for help'))
         
 
 # Redirects to !quack
@@ -43,36 +43,39 @@ async def help(ctx):
 async def quack(ctx):
 
     embed = discord.Embed(title="Scheint so als hättest du Probleme dir alle Befehle zu merken, quack.", description="Note: This bot is not meant to be taken seriously. If you're offended by any jokes, that's on you.", color=0xff9000)
-    embed.add_field(name="!about", value="Infos zum Bot.", inline=False)
-    embed.add_field(name="!ducks", value="Sendet das beste Tier.", inline=False)
-    embed.add_field(name="!shitpost", value="Sendet schlechte Witze die von 'Mongokyou' geschrieben wurden.", inline=False)
-    embed.add_field(name="!rps", value="Stein Schere Papier. Beispiel: !rps `rock` oder !rps `paper`  Duh.", inline=False)
-    embed.add_field(name="!gopnik", value="Sendet verschiedene gopniks die dich representieren.", inline=False)
-    embed.add_field(name="!hardbass", value="Sendet hardbass via youtube links.", inline=False)
-    embed.add_field(name="!spirit", value="Sendet dir dein persönliches Spirit Animal. Idee und Bilder von 'Mongokyou'.", inline=False)
-    embed.add_field(name="!ping", value="Pong.", inline=False)
-    embed.add_field(name="!coinflip", value="Wirft eine Münze. Idee von 'Mongokyou'.", inline=False)
-    embed.add_field(name="!anime", value="Empfiehlt dir den einzig wahren Anime. Idee von 'Mongokyou'.", inline=False)
-    embed.add_field(name="!hug", value="Umarmt die Person die erwähnt wird. Beispiel: !hug `@Scy` Idee von 'Mongokyou'.", inline=False)
-    embed.add_field(name="!hurensohn", value="Bot der die Discord Hack Week 2019 gewonnen hat. DAS ist wahrhaftig ein Hurensohn.", inline=False)
-    embed.add_field(name="!song", value="Offizieller Enten Squad Song.", inline=False)
-    embed.add_field(name="!decide", value="""Schreib !decide `a` or `b` und ich werde für dich die richtige Entscheidung treffen.""", inline=False)
-    embed.add_field(name="!rate", value="Bewertet deine Waifu. Beispiel: !rate `asuna`", inline=False)
-    embed.add_field(name="!quote", value="Schreib !quote `add *Text*` um ein Zitat hinzuzufügen, !quote `show` für ein zufälliges Zitat und !quote `list` um alle Zitate zu sehen.", inline=False)
-    embed.add_field(name="!vote", value="Für die 3 Uhr Morgens Ja/Nein Umfragen. Beispiel: !vote `Bin ich ein guter Bot?`", inline=False)
-    embed.add_field(name="!f oder !F", value="F", inline=False)    
-    embed.add_field(name="!cat oder !cats", value="Sendet 'ne Katze aus einer Liste. Idee und Bilder von 'Mongokyou'.", inline=False)
-    embed.add_field(name="!shiba", value="Sendet Shibas. Und meine Fresse sind die *süß.*", inline=False)
+    embed.add_field(name="!about", value="Infos zum Bot.", inline=True)
+    embed.add_field(name="!invite", value="Invite Link um den Bot auf deinen Server zu bringen.", inline=True)
+    embed.add_field(name="!ducks", value="Sendet das beste Tier.", inline=True)
+    embed.add_field(name="!shitpost", value="Sendet schlechte Witze die von 'Mongokyou' geschrieben wurden.", inline=True)
+    embed.add_field(name="!rps", value="Stein Schere Papier. Beispiel: !rps `rock` oder !rps `paper`  Duh.", inline=True)
+    embed.add_field(name="!gopnik", value="Sendet verschiedene gopniks die dich representieren.", inline=True)
+    embed.add_field(name="!hardbass", value="Sendet hardbass via youtube links.", inline=True)
+    embed.add_field(name="!spirit", value="Sendet dir dein persönliches Spirit Animal. Idee und Bilder von 'Mongokyou'.", inline=True)
+    embed.add_field(name="!ping", value="Pong.", inline=True)
+    embed.add_field(name="!coinflip", value="Wirft eine Münze. Idee von 'Mongokyou'.", inline=True)
+    embed.add_field(name="!anime", value="Empfiehlt dir den einzig wahren Anime. Idee von 'Mongokyou'.", inline=True)
+    embed.add_field(name="!hug", value="Umarmt die Person die erwähnt wird. Beispiel: !hug `@Scy` Idee von 'Mongokyou'.", inline=True)
+    embed.add_field(name="!hurensohn", value="Bot der die Discord Hack Week 2019 gewonnen hat. DAS ist wahrhaftig ein Hurensohn.", inline=True)
+    embed.add_field(name="!song", value="Offizieller Enten Squad Song.", inline=True)
+    embed.add_field(name="!decide", value="""Schreib !decide `a` or `b` und ich werde für dich die richtige Entscheidung treffen.""", inline=True)
+    embed.add_field(name="!rate", value="Bewertet deine Waifu. Beispiel: !rate `asuna`", inline=True)
+    embed.add_field(name="!quote", value="!quote `add *Text*` um Zitat hinzuzufügen, !quote `show` für ein zufälliges Zitat, !quote `list` um alle Zitate zu sehen.", inline=True)
+    embed.add_field(name="!vote", value="Für die 3 Uhr Morgens Ja/Nein Umfragen. Beispiel: !vote `Bin ich ein guter Bot?`", inline=True)
+    embed.add_field(name="!f oder !F", value="F", inline=True)    
+    embed.add_field(name="!cat oder !cats", value="Sendet 'ne Katze aus einer Liste. Idee und Bilder von 'Mongokyou'.", inline=True)
+    embed.add_field(name="!shiba", value="Sendet Shibas. Und meine Fresse sind die *süß.*", inline=True)
     embed.set_footer(text='!barth')
-    await ctx.send(embed=embed)
     
+    await ctx.send('Schau DM.')
+    await ctx.author.send(embed=embed)
+  
     
 # Shows creator and reason for creation
 @duck.command()
 async def about(ctx):
 
 
-    embed=discord.Embed(title="Folg mir auf Twitter, bin Influencer", description="", color=0xff9000)
+    embed=discord.Embed(title="Source² Code hier", description="", url="https://github.com/Scyless/DuckSquad", color=0xff9000)
     embed.set_author(name="Made by Scy", url="https://www.twitter.com/ScyIess", icon_url="https://i.imgur.com/lk60HXI.gif")
     embed.set_thumbnail(url="https://i.imgur.com/0iUtk4b.png")
     embed.add_field(name='Warum existierst du?', value='Der Bot wurde ursprünglich in 2017 aus eigener Interesse an Python erstellt, dann kam die Discord Hack Week 2019 und er wurde in rewrite neu geschrieben.', inline=True)
@@ -81,6 +84,13 @@ async def about(ctx):
     
     await ctx.send(embed=embed)
         
+
+# Sends invite link
+@duck.command() 
+async def invite(ctx):
+    
+    await ctx.send('Füg mich über folgenden Link hinzu: {}'.format('https://discord.com/oauth2/authorize?client_id=593706726637699083&scope=bot'))       
+
 
 # Sends ducks
 @duck.command(name='ducks',
