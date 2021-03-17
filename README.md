@@ -1,7 +1,14 @@
-![Discord Hack Week Banner](https://cdn-images-1.medium.com/max/2600/1*lh6NS8hx0pu5mlZeSqnu5w.jpeg)
+![Enten Banner](https://i.imgur.com/MauBF9r.png)
 
-A bot I (Scyless#7875) made with Mongokyou (Clash-Jan#1974 on Discord). Written by me, most ideas and pictures by him.
+A Discord Bot written in Python made by me and Mongokyou.
 
-It was made for the Discord Hack Week. Will probably keep using him after it ends.
+Requires the following packages:
+python3
+discord
+youtube-dl
+bs4
+requests
 
-Written in Python 3.7 and Discord.py 1.2.3.
+If you have any requests, contact me on Discord: Scy#3721
+
+Originally made for the Discord Hack Week 2019.
