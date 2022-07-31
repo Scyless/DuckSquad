@@ -3,4 +3,4 @@ database/
 .project
 .pydevproject
 .TOKEN
-update.bat
+.main.sh

@@ -8,7 +8,10 @@ discord
 youtube-dl
 bs4
 requests
+textwrap
+random
 
-If you have any requests, contact me on Discord: Scy#3721
+And some 
+
 
 Originally made for the Discord Hack Week 2019.

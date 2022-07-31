@@ -472,7 +472,7 @@ async def decide(ctx):
     
     'Are you a retard? Of course you are. Pick ***{}***.'.format(fdecision),
     'Pick your poison. Nevermind, I already did it for you. Choose ***{}***.'.format(fdecision),
-    'The Loser Squad demands you to take ***{}***.'.format(fdecision)
+    'The Enten Squad demands you to take ***{}***.'.format(fdecision)
     ]
     await ctx.send(random.choice(snark))
     
